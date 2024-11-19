@@ -1,6 +1,15 @@
 from textnode import TextType, TextNode
 import re
 
+def text_to_textnodes(text):
+    nodes =  [TextNode(text, TextType.TEXT)]
+    nodes =  split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
+
 def split_nodes_delimiter(old_nodes, delimeter, text_type):
     new_nodes = []
     for node in old_nodes:
@@ -85,10 +94,7 @@ def split_nodes_link(old_nodes):
                 remaining_text = sections[1]
             if remaining_text != "":
                 new_nodes.append(TextNode(remaining_text, TextType.TEXT))
-    return new_nodes 
+    return new_nodes
 
 
-node = TextNode(
-    "This is text with a LINK [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-    TextType.TEXT,
-)
+
