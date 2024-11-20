@@ -30,8 +30,6 @@ def split_nodes_delimiter(old_nodes, delimeter, text_type):
         new_nodes.extend(nodes_to_extend)
     return new_nodes
 
-
-
 def extract_markdown_images(text):
     matches = re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
     return matches
