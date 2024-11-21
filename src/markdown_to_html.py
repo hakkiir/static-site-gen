@@ -84,7 +84,7 @@ def code_to_html(block):
     text = block[4:-3]
     child = text_to_children(text)
     code = ParentNode("code", child)
-    return ParentNode("pre", code)
+    return ParentNode("pre", [code])
 
 def quote_to_html(block):
     text = block.split("\n")
@@ -93,7 +93,7 @@ def quote_to_html(block):
         if not line.startswith(">"):
             raise ValueError("invalid quote syntax")
         else:
-            lines.append(line.rstrip(">").strip())
+            lines.append(line.lstrip(">").strip())
     text = " ".join(lines)
     child = text_to_children(text)
     return ParentNode("blockquote", child)
@@ -113,19 +113,3 @@ def ulist_to_html(block):
         text = item[2:]
         li_parents.append(ParentNode("li",text_to_children(text)))
     return ParentNode("ul", li_parents)
-
-md = """
-This is **bolded** paragraph
-
-
-
-
-This is another paragraph with *italic* text and `code` here
-This is the same paragraph on a new line
-
-* This is a list
-* with items
-* asd
-"""
-
-print(markdown_to_html_node(md))
