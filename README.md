@@ -1,1 +1,1 @@
-Turn .MD file to static website (HTML/CSS)
+Turns .MD file to static website (HTML/CSS)
